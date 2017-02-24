@@ -1,0 +1,12 @@
+- if logged_in?
+  = form_for @comment, :url => memo_comments_path(memo_id: @memo.id), :html => { :class => "form-horizontal memo-comment" } do |f|
+    .form-group
+      .col-lg-12
+        = f.text_area :comment, :class => 'form-control', rows: 3
+      = f.error_span(:body)
+    .form-group
+      .col-lg-offset-2.col-lg-10
+        = f.submit nil, :class => 'btn btn-primary'
+- else
+  .alert.alert-warning
+    %p Please login to post comment

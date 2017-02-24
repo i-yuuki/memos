@@ -14,6 +14,8 @@ class MemosController < ApplicationController
   # GET /memos/1
   # GET /memos/1.json
   def show
+    @comment = Comment.new
+    @comments = Comment.where(memo_id: params[:id]).order("created_at DESC")
   end
 
   # GET /memos/new
