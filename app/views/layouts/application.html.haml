@@ -42,6 +42,7 @@
             %li= link_to "Link3", "/path3"
           %ul.nav.navbar-nav.navbar-right
             - if logged_in?
+              %li= link_to "New Memo", new_memo_path
               %li.dropdown
                 %a.dropdown-toggle(href="#" data-toggle="dropdown")
                   = current_user.name
