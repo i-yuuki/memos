@@ -1,0 +1,7 @@
+.panel.panel-default
+  .panel-heading
+    %h3.panel-header= link_to memo.title, memo_path(memo)
+    %small
+      Last updated at
+      &= l memo.updated_at
+  .panel-body.memo-body&= memo.body.truncate(40)

@@ -1,5 +1,11 @@
 class SessionsController < ApplicationController
+  before_action :require_login, only: [:show]
+  
   def new
+  end
+  
+  def show
+    @memos = Memo.where(user_id: current_user.id).order("updated_at DESC")
   end
   
   def create

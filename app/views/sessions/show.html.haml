@@ -1,0 +1,5 @@
+.page-header
+  %h1&= current_user.name
+%h2 My memos
+- @memos.each do |memo|
+  = render "memos/memo", memo: memo
