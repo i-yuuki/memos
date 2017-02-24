@@ -1,5 +1,9 @@
 class MemosController < ApplicationController
   before_action :set_memo, only: [:show, :edit, :update, :destroy]
+  before_action :require_login, only: [:new, :create, :destroy]
+  before_action only: [:edit, :update, :destroy] do
+    require_user(@memo.user_id)
+  end
 
   # GET /memos
   # GET /memos.json
@@ -25,14 +29,19 @@ class MemosController < ApplicationController
   # POST /memos.json
   def create
     @memo = Memo.new(memo_params)
-
     respond_to do |format|
-      if @memo.save
-        format.html { redirect_to @memo, notice: 'Memo was successfully created.' }
-        format.json { render :show, status: :created, location: @memo }
+      if session[:user_id]
+        @memo.user_id = session[:user_id]
+        if @memo.save
+          format.html { redirect_to @memo, notice: 'Memo was successfully created.' }
+          format.json { render :show, status: :created, location: @memo }
+        else
+          format.html { render :new }
+          format.json { render json: @memo.errors, status: :unprocessable_entity }
+        end
       else
-        format.html { render :new }
-        format.json { render json: @memo.errors, status: :unprocessable_entity }
+        format.html { render new_memo_path } #redirect_toにしないとalertが出てくれない
+        format.json { render json: [], status: :unauthorized }
       end
     end
   end

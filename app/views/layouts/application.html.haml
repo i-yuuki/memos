@@ -34,27 +34,26 @@
           %span.icon-bar
           %span.icon-bar
           %span.icon-bar
-        %a.navbar-brand{:href => "#"} Memos
+        %a.navbar-brand{:href => "/"} Memos
         .navbar-collapse.collapse.navbar-responsive-collapse
           %ul.nav.navbar-nav
             %li= link_to "Link1", "/path1"
             %li= link_to "Link2", "/path2"
             %li= link_to "Link3", "/path3"
+          %ul.nav.navbar-nav.navbar-right
+            - if logged_in?
+              %li.dropdown
+                %a.dropdown-toggle(href="#" data-toggle="dropdown")= current_user.name
+                %ul.dropdown-menu
+                  %li= link_to "Switch account", new_session_path
+                  %li= link_to "Logout", session_path, method: :delete
+            - else
+              %li= link_to "Login", new_session_path
     .container
       .row
-        .col-lg-9
+        .col-lg-12
           = bootstrap_flash
           = yield
-        .col-lg-3
-          .well.sidebar-nav
-            %h3 Sidebar
-            %ul.nav.nav-list
-              %li.nav-header Sidebar
-              %li= link_to "Link1", "/path1"
-              %li= link_to "Link2", "/path2"
-              %li= link_to "Link3", "/path3"
-          / /.well
-        / /span
       / /row
       %footer
         %p © Company 2017

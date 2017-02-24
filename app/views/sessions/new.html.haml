@@ -1,0 +1,10 @@
+= form_tag session_path, class: "form-horizontal" do
+  .form-group
+    .col-lg-offset-2.col-lg-4
+      %label Select user to log in
+      - opts = options_for_select(User.all.map {|u| [u.name, u.id]})
+      = select_tag :user_id, opts, class: "form-control"
+  .form-group
+    .col-lg-offset-2.col-lg-10
+      = submit_tag "Login", class: "btn btn-primary"
+      = link_to "Cancel", root_path, class: "btn btn-default"
