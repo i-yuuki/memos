@@ -13,9 +13,9 @@ class SessionsController < ApplicationController
     if user
       reset_session
       session[:user_id] = user.id
-      redirect_to root_path, notice: "Logged in as " + user.name
+      redirect_to session_path, notice: "Logged in as " + user.name
     else
-      redirect_to root_path, alert: "Login failed"
+      redirect_to new_session_path, alert: "Login failed"
     end
   end
   
